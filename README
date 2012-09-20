@@ -1,1 +1,36 @@
+Суть работы заключается в том, что при переключении вкладок мы записываем id ссылки по который переключились.
+
+<ul class="nav nav-tabs" id="myTab">
+    <li><a href="#home" id="home">Home</a></li>
+    <li><a href="#profile" id="profile">Profile</a></li>
+    <li><a href="#messages" id="messages">Messages</a></li>
+    <li><a href="#settings" id="settings">Settings</a></li>
+</ul>
+
+
+JS:
+var tabId;
+var tabSelector = '#myTab';
+if('undefined' != typeof window['localStorage']) {          // Проверяем поддержку localStorage
+    if ( localStorage.getItem('idTab') ) {                  // Если у нас уже есть запись, то
+        tabId = localStorage.getItem('idTab');              // берем данные
+        $('#'+tabId).tab('show');                           // показываем соответствующую вкладку
+    } else {                                                // Если данных нет
+        $(tabSelector+' a:first').tab('show');              // показываем открытой первую вкладку
+    }
+    $(tabSelector+' a').live('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        localStorage.setItem('idTab', e.currentTarget.id);  // Записываем id открытого таба
+    });
+} else {
+    $('#myTab a').live('click', function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+}
+
+
+
+---
 This file was created by JetBrains WebStorm 5.0.1 for binding GitHub repository
