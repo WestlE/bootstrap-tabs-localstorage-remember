@@ -11,12 +11,18 @@
 JS:
 var tabId;
 var tabSelector = '#myTab';
-if('undefined' != typeof window['localStorage']) {          // Проверяем поддержку localStorage
-    if ( localStorage.getItem('idTab') ) {                  // Если у нас уже есть запись, то
-        tabId = localStorage.getItem('idTab');              // берем данные
-        $('#'+tabId).tab('show');                           // показываем соответствующую вкладку
-    } else {                                                // Если данных нет
-        $(tabSelector+' a:first').tab('show');              // показываем открытой первую вкладку
+// Проверяем поддержку localStorage
+if('undefined' != typeof window['localStorage']) { 
+    // Если у нас уже есть запись, то
+    if ( localStorage.getItem('idTab') ) {     
+        // берем данные
+        tabId = localStorage.getItem('idTab');              
+        // показываем соответствующую вкладку
+        $('#'+tabId).tab('show');  
+    // Если данных нет
+    } else {                    
+        // показываем открытой первую вкладку
+        $(tabSelector+' a:first').tab('show');              
     }
     $(tabSelector+' a').live('click', function (e) {
         e.preventDefault();
